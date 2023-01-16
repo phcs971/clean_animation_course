@@ -1,0 +1,23 @@
+name: dependency_manager
+description: A new Flutter package project.
+version: 0.0.1
+homepage: null
+
+environment:
+  sdk: '>=2.18.6 <3.0.0'
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_modular: ^5.0.3
+  flutter_svg: ^1.1.6
+  flutter_triple: ^1.2.7+4
+  rive: ^0.10.1
+
+dev_dependencies:
+  flutter_lints: ^2.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter: null

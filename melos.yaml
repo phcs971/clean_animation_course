@@ -1,0 +1,9 @@
+name: clean_animation_course
+
+packages:
+  - .
+  - libraries/**
+
+scripts:
+  analyze:
+    exec: dart analyze .
