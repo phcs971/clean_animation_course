@@ -1,4 +1,5 @@
 import 'package:dependency_manager/flutter_modular.dart';
+import 'package:ds/ds.dart';
 import 'package:flutter/material.dart';
 
 class AppWidget extends StatelessWidget {
@@ -7,8 +8,8 @@ class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Flutter Slidy',
-      theme: ThemeData(primarySwatch: Colors.blue),
+      title: 'Clean Animation Course',
+      theme: AppTheme.of(context),
       routerDelegate: Modular.routerDelegate,
       routeInformationParser: Modular.routeInformationParser,
     );

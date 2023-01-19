@@ -9,7 +9,11 @@ environment:
 
 dependencies:
   dependency_manager:
+    path: libraries/dependency_manager
   auth:
+    path: libraries/modules/auth
+  ds:
+    path: libraries/ds
   flutter:
     sdk: flutter
 
@@ -22,7 +26,8 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  # assets:
+  assets:
+    - assets/RiveAssets/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   # fonts:
