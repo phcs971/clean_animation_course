@@ -1,10 +1,15 @@
 import 'dart:ui';
 
+import 'package:auth/src/utils/auth_assets.dart';
 import 'package:auth/src/utils/auth_metrics.dart';
 import 'package:auth/src/utils/auth_strings.dart';
+import 'package:dependency_manager/flutter_modular.dart';
 import 'package:dependency_manager/rive.dart';
+import 'package:ds/ds.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'auth_store.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({super.key});
@@ -14,38 +19,31 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
-  late RiveAnimationController _btnAnimationColtroller;
-
-  @override
-  void initState() {
-    _btnAnimationColtroller = OneShotAnimation(
-      "active",
-      autoplay: false,
-    );
-    super.initState();
-  }
+  final store = Modular.get<AuthStore>();
 
   Widget _buildButton(BuildContext context) {
     return GestureDetector(
-      onTap: () => _btnAnimationColtroller.isActive = true,
+      onTap: store.start,
       child: SizedBox(
-        height: 64,
-        width: 260,
+        height: AuthMetrics.buttonHeight,
+        width: AuthMetrics.buttonWidth,
         child: Stack(
           children: [
-            RiveAnimation.asset("assets/RiveAssets/button.riv",
-                controllers: [_btnAnimationColtroller]),
+            RiveAnimation.asset(
+              AuthAssets.buttonAnimation,
+              controllers: [store.btnAnimationColtroller],
+            ),
             Positioned.fill(
-              top: 8,
+              top: AuthMetrics.buttonTopPadding,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
-                  Icon(CupertinoIcons.arrow_right),
-                  SizedBox(width: 8),
                   Text(
-                    "Start the course",
+                    AuthStrings.startTheCourse,
                     style: TextStyle(fontWeight: FontWeight.w600),
                   ),
+                  SizedBox(width: AuthMetrics.buttonSpacing),
+                  Icon(CupertinoIcons.arrow_right),
                 ],
               ),
             )
@@ -58,38 +56,29 @@ class _AuthPageState extends State<AuthPage> {
   Widget _buildPage(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 32),
+        padding: const EdgeInsets.symmetric(
+            horizontal: AuthMetrics.horizontalPadding),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Spacer(),
             SizedBox(
-              width: 260,
+              width: AuthMetrics.buttonWidth,
               child: Column(
                 children: const [
-                  Text(
-                    "Learn design & code",
-                    style: TextStyle(
-                      fontSize: 60,
-                      fontFamily: "Poppins",
-                      fontWeight: FontWeight.w700,
-                      height: 1.2,
-                    ),
-                  ),
-                  SizedBox(height: 16),
-                  Text(
-                    "Don't skip design. Learn design and code, by building real apps with Flutter and Swift. Complete courses about the best tools.",
-                  ),
+                  Text(AuthStrings.learnDesignAndCode,
+                      style: AppTextStyles.hugeTitle),
+                  SizedBox(height: AuthMetrics.titleSpacing),
+                  Text(AuthStrings.dontSkipMessage),
                 ],
               ),
             ),
-            const Spacer(flex: 2),
+            const Spacer(flex: AuthMetrics.titleFlex),
             _buildButton(context),
             const Padding(
-              padding: EdgeInsets.symmetric(vertical: 24),
-              child: Text(
-                "Purchase includes access to 30+ courses, 240+ premium tutorials, 120+ hours of videos, source files and certificates.",
-              ),
+              padding:
+                  EdgeInsets.symmetric(vertical: AuthMetrics.purchasePadding),
+              child: Text(AuthStrings.purchaseMessage),
             ),
           ],
         ),
@@ -107,14 +96,17 @@ class _AuthPageState extends State<AuthPage> {
                 AuthMetrics.backgroundImageWidthFactor,
             bottom: AuthMetrics.backgroundImageBottom,
             left: AuthMetrics.backgroundImageLeading,
-            child: Image.asset(AuthStrings.backgroundImage),
+            child: Image.asset(AuthAssets.backgroundImage),
           ),
           Positioned.fill(
             child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 20, sigmaY: 10),
+              filter: ImageFilter.blur(
+                sigmaX: AuthMetrics.backgroundSigmaX,
+                sigmaY: AuthMetrics.backgroundSigmaY,
+              ),
             ),
           ),
-          const RiveAnimation.asset(AuthStrings.shapesAnimation),
+          const RiveAnimation.asset(AuthAssets.shapesAnimation),
           Positioned.fill(
             child: BackdropFilter(
               filter: ImageFilter.blur(

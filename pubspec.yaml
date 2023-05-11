@@ -14,6 +14,8 @@ dependencies:
     path: libraries/modules/auth
   ds:
     path: libraries/ds
+  core:
+    path: libraries/core
   flutter:
     sdk: flutter
 
